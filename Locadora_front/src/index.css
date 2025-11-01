@@ -1,0 +1,14 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Saira", sans-serif;
+  
+}
+
+body{
+  min-height: 100vh;
+  min-width: 100vw;
+  background: linear-gradient(to bottom, #0b0b16, #262358);
+  padding-top: 100px; /* Garante espaço para o header fixo. Ajuste o valor se necessário */
+}

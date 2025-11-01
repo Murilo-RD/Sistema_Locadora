@@ -1,0 +1,56 @@
+.header-container {
+  background-color: rgb(27, 27, 87);
+  padding: 15px 40px; /* Aumentamos o padding horizontal para dar espaço nas laterais */
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* A MUDANÇA PRINCIPAL: joga os itens para cantos opostos */
+  align-items: center; /* Alinha verticalmente o logo e a navegação */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+}
+
+/* NOVO: Estilos para a div do logo */
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Espaço entre o ícone e o texto */
+  color: white;
+}
+
+.header-logo h1 {
+  font-size: 24px;
+  margin: 0; /* Remove a margem padrão do h1 */
+}
+
+.main-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.main-nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 25px;
+  border-radius: 30px;
+  background-color: transparent;
+  border: 2px solid transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.main-nav a:hover {
+  background-color: #181830;
+}
+
+.main-nav a.active {
+  background-color: #181830;
+  cursor: default;
+}

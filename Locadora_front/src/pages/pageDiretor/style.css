@@ -1,0 +1,105 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 100px;
+  color: white;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  border-radius: 30px;
+  background-color: rgb(27, 27, 87);
+  max-width: 50%;
+  width: 700px;
+  margin-bottom: 30px;
+}
+
+form button {
+  border-radius: 30px;
+  background-color: #181830;
+  height: 40px;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s; /* Adicionado para suavizar o hover */
+}
+
+form button:hover {
+  opacity: 0.8;
+}
+
+/* Adicionando uma classe específica para o botão cancelar para melhor manutenibilidade */
+form button.cancel-btn {
+  background-color: #5a2d2d; /* Um vermelho escuro para indicar cancelamento */
+}
+
+form button.cancel-btn:hover {
+  opacity: 0.7;
+}
+
+
+form input {
+  border: 1px solid #181830;
+  border-radius: 30px;
+  height: 40px;
+  background-color: #181830;
+  color: #fff;
+  font-size: 16px;
+  padding-left: 25px;
+  padding-right: 25px;
+  outline: none;
+}
+
+img {
+  height: 35px;
+}
+
+/* Alterei o seletor para funcionar em todos os navegadores, pois o aninhamento com '&' é do SASS/SCSS */
+.conAtor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Adicionado para melhor alinhamento vertical */
+  background-color: rgb(27, 27, 87);
+  margin: 10px;
+  padding: 10px 20px; /* Ajuste no padding */
+  border-radius: 10px;
+  width: 700px;
+  font-weight: bold;
+}
+
+.conAtor span {
+  font-weight: normal;
+  margin-left: 8px; /* Pequeno espaçamento */
+}
+
+.conAtor button {
+  margin-left: 10px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.conAtor button:hover {
+  opacity: 0.5;
+}
+
+.info {
+  display: flex;
+  flex-direction: column; /* Organiza as informações em coluna */
+  gap: 5px; /* Espaçamento entre os parágrafos de informação */
+}
+
+.action {
+  display: flex;
+  justify-content: stretch;
+}
