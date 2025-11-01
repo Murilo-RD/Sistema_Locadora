@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Header from '../components/header/header';
-import PageAtor from '../pages/pageAtor';
-import PageDiretor from '../pages/pageDiretor';
-import PageClasse from '../pages/pageClasse';
 
-
+// Importe os componentes e páginas necessários
+import Header from '../components/Header/Header';
+import PageAtor from '../pages/PageAtor';
+import PageDiretor from '../pages/PageDiretor';
+import PageClasse from '../pages/PageClasse';
+import PageTitulo from '../pages/pageTitulo'; // NOVO
+import PageItem from '../pages/PageItem';     // NOVO
 
 // Componente que gerencia todas as rotas da aplicação
 export function AppRoutes() {
@@ -16,12 +18,14 @@ export function AppRoutes() {
       <main className="main-content">
         <Routes>
           {/* Rota padrão redireciona para /atores */}
-          <Route path="/" element={<Navigate to="/atores" />} />
+          <Route path="/" element={<Navigate to="/titulos" />} /> {/* MUDADO para /titulos como principal */}
 
           {/* Rotas específicas para cada página */}
           <Route path="/atores" element={<PageAtor />} />
           <Route path="/diretores" element={<PageDiretor />} />
           <Route path="/classes" element={<PageClasse />} />
+          <Route path="/titulos" element={<PageTitulo />} /> {/* NOVO */}
+          <Route path="/itens" element={<PageItem />} />     {/* NOVO */}
 
           {/* Rota para páginas não encontradas */}
           <Route path="*" element={

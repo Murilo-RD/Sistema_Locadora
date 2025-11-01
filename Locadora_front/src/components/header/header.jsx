@@ -1,20 +1,25 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaFilm } from 'react-icons/fa'; // 1. Importamos o ícone de filme
+import { FaFilm } from 'react-icons/fa';
 import './Header.css';
 
 function Header() {
   return (
     <header className="header-container">
-      {/* 2. Criamos uma div para o logo (ícone + texto) */}
       <div className="header-logo">
-        <FaFilm size={28} /> {/* O ícone em si, com tamanho definido */}
+        <FaFilm size={28} />
         <h1>Locadora</h1>
       </div>
 
-      {/* Navegação continua a mesma */}
       <nav className="main-nav">
         <ul>
+          {/* Links adicionados */}
+          <li>
+            <NavLink to="/titulos">Títulos</NavLink>
+          </li>
+          <li>
+            <NavLink to="/itens">Itens</NavLink>
+          </li>
           <li>
             <NavLink to="/atores">Atores</NavLink>
           </li>

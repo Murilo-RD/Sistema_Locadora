@@ -1,0 +1,197 @@
+/* === ESTILOS GLOBAIS === */
+body {
+  /* Fundo escuro para a página inteira */
+  background-color: #0f0f1f; 
+  color: white; 
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  
+  /* Garante espaço no topo para o Header fixo */
+  /* Ajuste 100px se a altura do seu header mudar */
+  padding-top: 100px; 
+}
+
+/* === CONTAINER PRINCIPAL === */
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /* Adiciona um padding na parte de baixo para não colar no fim da página */
+  padding-bottom: 50px; 
+}
+
+/* === TÍTULO (h1) === */
+h1 {
+  font-size: 32px;
+  /* Remove margens padrão que podem atrapalhar o layout do form */
+  margin: 0; 
+}
+
+/* === ESTILOS DO FORMULÁRIO === */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  border-radius: 30px;
+  background-color: rgb(27, 27, 87);
+  width: 700px;
+  /* Adicionado para melhor responsividade em telas menores */
+  max-width: 90%; 
+  margin-bottom: 30px;
+  /* Garante que o padding não aumente a largura total */
+  box-sizing: border-box; 
+}
+
+/* Estilos comuns para TODOS os campos de entrada (input, textarea, select) 
+*/
+form input,
+form textarea,
+form select {
+  border: 1px solid #181830;
+  border-radius: 30px;
+  background-color: #181830;
+  color: #fff;
+  font-size: 16px;
+  /* Padding horizontal padrão */
+  padding: 0 25px; 
+  outline: none;
+  font-family: inherit; /* Garante que use a mesma fonte do 'body' */
+  box-sizing: border-box; 
+}
+
+/* Inputs de texto/número/data (altura fixa) */
+form input {
+  height: 40px;
+}
+
+/* Área de Texto (Sinopse) */
+form textarea {
+  min-height: 100px;
+  /* Mais padding vertical para texto de várias linhas */
+  padding: 15px 25px; 
+  resize: vertical; /* Permite ao usuário redimensionar apenas verticalmente */
+}
+
+/* Select (Dropdown) */
+form select {
+  height: 40px;
+  /* Remove a aparência padrão do navegador */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  /* Seta customizada (branca) para o fundo escuro */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.2-6.1H18.8c-7.7%200-13.5%204.8-13.2%206.1-2.1%201.3-4.1%203.2-6%205.1L0%2084.7l146.2%20146.2L292.4%2084.7l-6-5.1z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  background-size: 10px;
+}
+
+/* Select Múltiplo (Atores) */
+form select[multiple] {
+  height: auto;
+  min-height: 120px;
+  padding: 15px 25px; /* Padding vertical */
+  background-image: none; /* Remove a seta do dropdown, já que não faz sentido aqui */
+}
+
+/* Labels (Rótulos dos campos) */
+form label {
+  font-size: 14px;
+  font-weight: bold;
+  padding-left: 10px;
+  /* Puxa o campo para mais perto */
+  margin-bottom: -10px; 
+}
+
+/* Separador (Linha Horizontal) */
+form hr {
+  border: none;
+  border-top: 1px solid #181830;
+  margin: 10px 0;
+}
+
+/* --- Botões do Formulário --- */
+form button {
+  border-radius: 30px;
+  background-color: #181830;
+  height: 40px;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+  transition: opacity 0.2s ease;
+}
+
+form button:hover {
+  opacity: 0.8;
+}
+
+/* Botão de Cancelar */
+form button.cancel-btn {
+  background-color: #5a2d2d; /* Vermelho escuro */
+}
+
+form button.cancel-btn:hover {
+  opacity: 0.7;
+}
+
+
+/* === ESTILOS DOS CARDS (Lista de Itens) === */
+/* Usamos .conAtor como classe genérica para todos os cards */
+.conAtor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(27, 27, 87);
+  margin: 10px;
+  padding: 20px 25px;
+  border-radius: 10px;
+  width: 700px;
+  max-width: 90%; /* Responsividade */
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+/* Div para as informações (ID, Nome, etc.) */
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Espaço entre as linhas de informação */
+}
+
+.conAtor span {
+  font-weight: normal;
+  margin-left: 8px;
+}
+
+/* Div para os botões de Ação (Editar, Deletar) */
+.action {
+  display: flex;
+  justify-content: stretch;
+  gap: 10px; /* Espaço entre os botões */
+}
+
+.conAtor button {
+  margin-left: 0; /* Substituído pelo 'gap' no .action */
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 0; /* Remove padding para alinhar melhor os ícones */
+  transition: opacity 0.2s;
+}
+
+.conAtor button:hover {
+  opacity: 0.5;
+}
+
+/* === UTILITÁRIOS === */
+/* Estilo para os ícones de Deletar/Editar */
+img {
+  height: 35px;
+  /* Impede que a imagem crie um espaço extra indesejado abaixo dela */
+  display: block; 
+}

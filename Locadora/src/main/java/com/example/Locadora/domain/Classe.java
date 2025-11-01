@@ -8,11 +8,13 @@ import lombok.Setter;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Classe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +24,8 @@ public class Classe {
     private Double valor;
     private Integer prazoDevolucao;
 
-    @OneToMany(mappedBy = "classe", fetch = FetchType.LAZY)
     @JsonIgnore
+    @OneToMany(mappedBy = "classe", fetch = FetchType.LAZY)
     private List<Titulo> titulos = new ArrayList<>();
 
     public Classe() {
