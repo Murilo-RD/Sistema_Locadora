@@ -30,7 +30,7 @@ public class CtrItem {
     }
 
     @PostMapping("/Delete/{id}")
-    public void Delete(@PathVariable Long id) {
+    public void Delete(@PathVariable String id) {
         servItem.delete(id);
     }
 

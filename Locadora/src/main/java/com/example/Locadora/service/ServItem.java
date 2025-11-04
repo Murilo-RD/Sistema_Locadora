@@ -20,7 +20,7 @@ public class ServItem {
         return repository.save(diretor);
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         repository.deleteById(id);
     }
 

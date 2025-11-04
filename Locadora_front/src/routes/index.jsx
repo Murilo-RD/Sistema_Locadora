@@ -6,8 +6,8 @@ import PageAtor from '../pages/PageAtor';
 import PageDiretor from '../pages/PageDiretor';
 import PageClasse from '../pages/PageClasse';
 import PageTitulo from '../pages/pageTitulo'; // NOVO
-import PageItem from '../pages/PageItem';     // NOVO
-
+import PageItem from '../pages/pageItem';     // NOVO
+import PageCliente from '../pages/pageCliente'; 
 // Componente que gerencia todas as rotas da aplicação
 export function AppRoutes() {
   return (
@@ -17,10 +17,9 @@ export function AppRoutes() {
 
       <main className="main-content">
         <Routes>
-          {/* Rota padrão redireciona para /atores */}
-          <Route path="/" element={<Navigate to="/titulos" />} /> {/* MUDADO para /titulos como principal */}
+         <Route path="/" element={<Navigate to="/clientes" />} /> 
 
-          {/* Rotas específicas para cada página */}
+          <Route path="/clientes" element={<PageCliente />} />
           <Route path="/atores" element={<PageAtor />} />
           <Route path="/diretores" element={<PageDiretor />} />
           <Route path="/classes" element={<PageClasse />} />

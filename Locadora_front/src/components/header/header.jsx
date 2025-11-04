@@ -15,6 +15,9 @@ function Header() {
         <ul>
           {/* Links adicionados */}
           <li>
+            <NavLink to="/clientes">Clientes</NavLink>
+          </li>
+          <li>
             <NavLink to="/titulos">Títulos</NavLink>
           </li>
           <li>
