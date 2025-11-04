@@ -4,9 +4,10 @@ import Delete from '../../assets/delete.png';
 import Edit from '../../assets/edit.png';
 import { FaUserPlus } from 'react-icons/fa'; 
 import api from '../../services/api';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-// --- Componente DependenteForm (Sem alterações) ---
-// (Formulário embutido para ADICIONAR dependente)
+// --- Componente DependenteForm ---
 function DependenteForm({ socio, onCancel, onSave }) {
   const [nome, setNome] = useState('');
   const [sexo, setSexo] = useState('');
@@ -15,7 +16,7 @@ function DependenteForm({ socio, onCancel, onSave }) {
   const handleSubmit = async (e) => {
     e.preventDefault(); 
     if (!nome || !sexo || !dtNascimento) {
-      alert("Preencha todos os campos do dependente.");
+      toast.warn("Preencha todos os campos do dependente.");
       return;
     }
     await onSave(socio.numInscricao, {
@@ -59,7 +60,7 @@ function DependenteForm({ socio, onCancel, onSave }) {
 }
 
 
-// --- Componente Principal da Página ---
+// --- Componente Principal ---
 function PageCliente() {
   const [allClientes, setAllClientes] = useState([]); 
   const [filteredClientes, setFilteredClientes] = useState([]); 
@@ -79,7 +80,6 @@ function PageCliente() {
   
   const inputSearchNomeRef = useRef(); 
 
-  // --- FUNÇÕES DE DADOS (Listar e Pesquisar) ---
   async function fetchAllClientes() {
     try {
       const response = await api.get('/Cliente'); 
@@ -88,8 +88,7 @@ function PageCliente() {
       setFilteredClientes(data);
     } catch (error) {
       console.error("Erro ao buscar clientes:", error);
-      setAllClientes([]);
-      setFilteredClientes([]);
+      toast.error("Erro ao buscar lista de clientes.");
     }
   }
 
@@ -127,22 +126,17 @@ function PageCliente() {
     setFormData(prev => ({ ...prev, [name]: value }));
   }
 
-  // --- FUNÇÕES DE AÇÃO (CRUD) ---
-
-  // --- ATUALIZADO ---
-  // Agora inclui a lógica para ATUALIZAR DEPENDENTE
   async function handleFormSubmit() {
     const isSocio = (isEditing && currentCliente?.cpf) || (!isEditing && formData.cpf);
     
-    // Validação
     if (isSocio) {
       if (!formData.nome || !formData.endereco || !formData.telefone || !formData.sexo || !formData.cpf || !formData.dtNascimento) {
-        alert("Para Sócios, todos os campos são obrigatórios.");
+        toast.warn("Para Sócios, todos os campos são obrigatórios.");
         return;
       }
-    } else if (isEditing && !currentCliente?.cpf) { // Editando um dependente
+    } else if (isEditing && !currentCliente?.cpf) {
       if(!formData.nome || !formData.sexo || !formData.dtNascimento) {
-        alert("Para Dependentes, os campos Nome, Sexo e Data de Nascimento são obrigatórios.");
+        toast.warn("Para Dependentes, os campos Nome, Sexo e Data de Nascimento são obrigatórios.");
         return;
       }
     }
@@ -150,34 +144,31 @@ function PageCliente() {
     try {
       if (isEditing) {
         if (isSocio) {
-          // --- ATUALIZAR SÓCIO ---
           await api.put(`/Cliente/socios/${currentCliente.numInscricao}`, {
             ...currentCliente, 
             ...formData,      
             numInscricao: currentCliente.numInscricao 
           });
-          alert("Sócio atualizado com sucesso!");
+          toast.success("Sócio atualizado com sucesso!");
         } else {
-          // --- ATUALIZAR DEPENDENTE (NOVA LÓGICA) ---
           await api.put(`/Cliente/dependentes/${currentCliente.numInscricao}`, {
-            ...currentCliente, // Envia dados antigos (como 'socio' e 'estaAtivo')
-            // Envia apenas os dados que estão no formulário de dependente
+            ...currentCliente,
             nome: formData.nome,
             sexo: formData.sexo,
             dtNascimento: formData.dtNascimento
           });
-          alert("Dependente atualizado com sucesso!");
+          toast.success("Dependente atualizado com sucesso!");
         }
       } else {
-        // --- CRIAR SÓCIO ---
         await api.post('/Cliente/SaveSocio', { ...formData, estaAtivo: true });
-        alert("Sócio cadastrado com sucesso!");
+        toast.success("Sócio cadastrado com sucesso!");
       }
       limparForm();
       fetchAllClientes();
     } catch (error) {
       console.error("Erro ao salvar:", error);
-      alert(error.response?.data?.message || "Erro ao salvar cliente.");
+      const backendMsg = error.response?.data?.mensagem || error.response?.data?.erro;
+      toast.error(backendMsg || "Erro ao salvar cliente.");
     }
   }
 
@@ -185,40 +176,37 @@ function PageCliente() {
     if (window.confirm(`Tem certeza que deseja excluir ${cliente.nome}? Ação irreversível.`)) {
       try {
         await api.delete(`/Cliente/${cliente.numInscricao}`);
-        alert("Cliente excluído com sucesso.");
+        toast.success("Cliente excluído com sucesso.");
         fetchAllClientes(); 
       } catch (error) {
         console.error("Erro ao deletar:", error);
-        alert(error.response?.data?.message || "Erro: Este cliente pode possuir locações ativas.");
+        const backendMsg = error.response?.data?.mensagem || error.response?.data?.erro;
+        toast.error(backendMsg || "Erro: Este cliente pode possuir locações ativas.");
       }
     }
   }
 
-  // --- ATUALIZADO ---
-  // Agora preenche o formulário para qualquer cliente
   function handleEdit(cliente) {
     setIsEditing(true);
     setCurrentCliente(cliente);
-    setDependenteFormSocioId(null); // Fecha qualquer formulário de dependente
+    setDependenteFormSocioId(null);
     
     setFormData({
       nome: cliente.nome,
       dtNascimento: new Date(cliente.dtNascimento).toISOString().split('T')[0],
       sexo: cliente.sexo,
-      // Se for sócio, preenche. Se não, string vazia.
       cpf: cliente.cpf || '',
       endereco: cliente.endereco || '',
       telefone: cliente.telefone || ''
     });
     
-    window.scrollTo(0, 0); // Rola para o topo
+    window.scrollTo(0, 0);
   }
 
-  // --- LÓGICA DO FORMULÁRIO DE CRIAR DEPENDENTE (Sem alterações) ---
   function handleOpenDependenteForm(socio) {
     const dependentesAtivos = socio.dependentes?.filter(d => d.estaAtivo).length || 0;
     if (dependentesAtivos >= 3) {
-      alert("Este sócio já possui o limite de 3 dependentes ativos.");
+      toast.warn("Este sócio já possui o limite de 3 dependentes ativos.");
       return;
     }
     setDependenteFormSocioId(prevId => (prevId === socio.numInscricao ? null : socio.numInscricao));
@@ -227,17 +215,16 @@ function PageCliente() {
   async function handleSaveDependente(socioId, dependenteData) {
     try {
       await api.post(`/Cliente/socios/${socioId}/dependentes`, dependenteData);
-      alert("Dependente salvo com sucesso!");
+      toast.success("Dependente salvo com sucesso!");
       setDependenteFormSocioId(null); 
       fetchAllClientes(); 
     } catch (error) {
       console.error("Erro ao salvar dependente:", error);
-      alert(error.response?.data?.message || "Erro ao salvar dependente.");
+      const backendMsg = error.response?.data?.mensagem || error.response?.data?.erro;
+      toast.error(backendMsg || "Erro ao salvar dependente.");
     }
   }
 
-  // --- ATUALIZADO ---
-  // Função para determinar o título do formulário
   function getFormTitle() {
     if (isEditing) {
       return currentCliente?.cpf 
@@ -249,8 +236,6 @@ function PageCliente() {
 
   return (
     <div className='container'>
-      
-      {/* Formulário de Pesquisa (Estilo Título) */}
       <form>
         <h1>Cliente</h1>
         <input 
@@ -264,9 +249,7 @@ function PageCliente() {
         </div>
       </form>
       
-      {/* Formulário Principal (Sócio/Dependente) */}
       <form>
-        {/* --- TÍTULO ATUALIZADO --- */}
         <h1>{getFormTitle()}</h1>
         
         <input placeholder='Nome' type="text" name='nome' value={formData.nome} onChange={handleFormChange} />
@@ -274,11 +257,6 @@ function PageCliente() {
         <label>Data de Nascimento:</label>
         <input type="date" name='dtNascimento' value={formData.dtNascimento} onChange={handleFormChange} />
 
-        {/* --- LÓGICA DE EXIBIÇÃO ATUALIZADA --- */}
-        {/* Só mostra campos de Sócio se: 
-            1. Não estiver editando (for cadastro de Sócio)
-            2. Estiver editando E o cliente for um Sócio
-        */}
         {(!isEditing || (isEditing && currentCliente?.cpf)) && (
           <>
             <hr />
@@ -298,7 +276,6 @@ function PageCliente() {
         )}
       </form>
 
-      {/* --- Lista de Clientes --- */}
       {filteredClientes.map((cliente) => {
         const isSocio = !!cliente.cpf; 
         const isFormOpen = dependenteFormSocioId === cliente.numInscricao;
@@ -326,8 +303,6 @@ function PageCliente() {
                   </button>
                 )}
 
-                {/* --- BOTÃO DE EDITAR ATUALIZADO --- */}
-                {/* Agora está sempre habilitado */}
                 <button 
                   title="Editar"
                   onClick={() => handleEdit(cliente)}
@@ -341,7 +316,6 @@ function PageCliente() {
               </div>
             </div>
             
-            {/* Renderiza o formulário de adicionar dependente embaixo do card */}
             {isFormOpen && (
               <DependenteForm
                 socio={cliente}
@@ -352,6 +326,9 @@ function PageCliente() {
           </React.Fragment>
         );
       })}
+
+      {/* Toast Container */}
+      <ToastContainer position="top-right" autoClose={4000} hideProgressBar={false} />
     </div>
   );
 }

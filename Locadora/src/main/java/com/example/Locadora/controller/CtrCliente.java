@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.Locadora.domain.Cliente;
 import com.example.Locadora.domain.Dependente;
 import com.example.Locadora.domain.Socio;
-import com.example.Locadora.service.ClienteService;
+import com.example.Locadora.service.ServCliente;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CtrCliente {
 
-    private final ClienteService clienteService;
+    private final ServCliente clienteService;
 
     // --- Endpoints Gerais ---
 
