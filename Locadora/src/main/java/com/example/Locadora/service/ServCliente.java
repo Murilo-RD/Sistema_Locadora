@@ -108,6 +108,7 @@ public class ServCliente {
         dependenteExistente.setNome(dependenteAtualizado.getNome());
         dependenteExistente.setDtNascimento(dependenteAtualizado.getDtNascimento());
         dependenteExistente.setSexo(dependenteAtualizado.getSexo());
+        dependenteExistente.setEstaAtivo(dependenteAtualizado.getEstaAtivo());
         return dependenteRepository.save(dependenteExistente);
     }
 }
