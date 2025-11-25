@@ -1,0 +1,14 @@
+# Imagem base com Java 17 (ou mude para 21 se precisar)
+FROM eclipse-temurin:21-jdk-alpine
+
+# Diretório onde o app será colocado
+WORKDIR /app
+
+# Copia o JAR gerado pelo Spring Boot para dentro da imagem
+COPY target/*.jar app.jar
+
+# Porta que o Spring Boot usa
+EXPOSE 8080
+
+# Comando de inicialização
+ENTRYPOINT ["java", "-jar", "app.jar"]

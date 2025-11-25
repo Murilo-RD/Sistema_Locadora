@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaFilm } from 'react-icons/fa';
-import './Header.css';
+import './header.css';
 
 function Header() {
   return (

@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 // Importe os componentes e páginas necessários
-import Header from '../components/Header/Header';
-import PageAtor from '../pages/PageAtor';
-import PageDiretor from '../pages/PageDiretor';
-import PageClasse from '../pages/PageClasse';
+import Header from '../components/header/header';
+import PageAtor from '../pages/pageAtor';
+import PageDiretor from '../pages/pageDiretor';
+import PageClasse from '../pages/pageClasse';
 import PageTitulo from '../pages/pageTitulo'; // NOVO
 import PageItem from '../pages/pageItem';     // NOVO
 import PageCliente from '../pages/pageCliente'; 
