@@ -11,7 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-
 @Entity
 public class Item {
     @Id
@@ -21,14 +20,15 @@ public class Item {
     private Date dtAquisicao;
 
     private String tipoItem;
+    private boolean disponivel;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "titulo_id")
     private Titulo titulo;
 
     public Item() {
+        disponivel = true;
     }
-
     
     // getters e setters
 }
